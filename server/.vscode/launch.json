@@ -10,7 +10,7 @@
             "request": "launch",
             "mode": "auto",
             // "program": "${fileDirname}"
-            "program": "/Users/moriyamayuuta/develop/test/z-go-readt-monorepo/server"
+            "program": "/Users/moriyamayuuta/develop/test/z-go-react-monorepo/server/cmd/"
         }
     ]
 }
