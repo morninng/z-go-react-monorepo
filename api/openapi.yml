@@ -4,10 +4,10 @@ info:
   version: '1.0.0'
   description: API for Sample
   contact:
-    name: WED
+    name: mixidea
     email: yuta.moriyama@gmail.com
 servers:
-  - url: 'localhost'
+  - url: 'localhost:1323'
 tags:
   - name: admin
     description: admin role

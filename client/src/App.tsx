@@ -1,24 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import { useApiTask } from './hooks/useApiTask';
 
 function App() {
+  const api = useApiTask();
+  const [tasks, setTasks] = useState<any[]>();
+
+  const init = async () => {
+    const sss =  await api.getTasks();
+    console.log(sss);
+    setTasks(sss);
+  };
+
+  React.useEffect(() => {
+    init();
+  }, []);
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+      {tasks && tasks.map(
+        (task, index) => <div key={index}>{task.id} {task.name}</div>
+      )}
+      </div>
     </div>
   );
 }
