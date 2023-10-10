@@ -56,11 +56,53 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      operationId: get-tasks-task_id
+      operationId: get-task-task_id
       security:
         - BearerAuth: []
       description: タスク詳細取得
 
+  '/tasks':
+    get:
+      summary: タスク群取得
+      tags:
+        - admin
+        - editor
+        - viewer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tasks'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-tasks
+      security:
+        - BearerAuth: []
+      description: タスク群取得
 
 
 components:
@@ -68,6 +110,13 @@ components:
     #
     # Model
     #
+
+    Tasks:
+      title: Tasks
+      type: array
+      description: タスク群
+      items:
+        $ref: '#/components/schemas/Task'
 
     Task:
       title: Task

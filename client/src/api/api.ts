@@ -193,11 +193,45 @@ export const AdminApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTasksTaskId: async (taskId: string, options: any = {}): Promise<RequestArgs> => {
+        getTaskTaskId: async (taskId: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'taskId' is not null or undefined
-            assertParamExists('getTasksTaskId', 'taskId', taskId)
+            assertParamExists('getTaskTaskId', 'taskId', taskId)
             const localVarPath = `/task/{task_id}`
                 .replace(`{${"task_id"}}`, encodeURIComponent(String(taskId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * タスク群取得
+         * @summary タスク群取得
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTasks: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/tasks`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -241,8 +275,18 @@ export const AdminApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTasksTaskId(taskId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Task>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTasksTaskId(taskId, options);
+        async getTaskTaskId(taskId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Task>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTaskTaskId(taskId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * タスク群取得
+         * @summary タスク群取得
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTasks(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Task>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTasks(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -262,8 +306,17 @@ export const AdminApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTasksTaskId(taskId: string, options?: any): AxiosPromise<Task> {
-            return localVarFp.getTasksTaskId(taskId, options).then((request) => request(axios, basePath));
+        getTaskTaskId(taskId: string, options?: any): AxiosPromise<Task> {
+            return localVarFp.getTaskTaskId(taskId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * タスク群取得
+         * @summary タスク群取得
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTasks(options?: any): AxiosPromise<Array<Task>> {
+            return localVarFp.getTasks(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -283,8 +336,19 @@ export class AdminApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AdminApi
      */
-    public getTasksTaskId(taskId: string, options?: any) {
-        return AdminApiFp(this.configuration).getTasksTaskId(taskId, options).then((request) => request(this.axios, this.basePath));
+    public getTaskTaskId(taskId: string, options?: any) {
+        return AdminApiFp(this.configuration).getTaskTaskId(taskId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * タスク群取得
+     * @summary タスク群取得
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AdminApi
+     */
+    public getTasks(options?: any) {
+        return AdminApiFp(this.configuration).getTasks(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -302,11 +366,45 @@ export const EditorApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTasksTaskId: async (taskId: string, options: any = {}): Promise<RequestArgs> => {
+        getTaskTaskId: async (taskId: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'taskId' is not null or undefined
-            assertParamExists('getTasksTaskId', 'taskId', taskId)
+            assertParamExists('getTaskTaskId', 'taskId', taskId)
             const localVarPath = `/task/{task_id}`
                 .replace(`{${"task_id"}}`, encodeURIComponent(String(taskId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * タスク群取得
+         * @summary タスク群取得
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTasks: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/tasks`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -350,8 +448,18 @@ export const EditorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTasksTaskId(taskId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Task>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTasksTaskId(taskId, options);
+        async getTaskTaskId(taskId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Task>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTaskTaskId(taskId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * タスク群取得
+         * @summary タスク群取得
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTasks(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Task>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTasks(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -371,8 +479,17 @@ export const EditorApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTasksTaskId(taskId: string, options?: any): AxiosPromise<Task> {
-            return localVarFp.getTasksTaskId(taskId, options).then((request) => request(axios, basePath));
+        getTaskTaskId(taskId: string, options?: any): AxiosPromise<Task> {
+            return localVarFp.getTaskTaskId(taskId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * タスク群取得
+         * @summary タスク群取得
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTasks(options?: any): AxiosPromise<Array<Task>> {
+            return localVarFp.getTasks(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -392,8 +509,19 @@ export class EditorApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof EditorApi
      */
-    public getTasksTaskId(taskId: string, options?: any) {
-        return EditorApiFp(this.configuration).getTasksTaskId(taskId, options).then((request) => request(this.axios, this.basePath));
+    public getTaskTaskId(taskId: string, options?: any) {
+        return EditorApiFp(this.configuration).getTaskTaskId(taskId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * タスク群取得
+     * @summary タスク群取得
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EditorApi
+     */
+    public getTasks(options?: any) {
+        return EditorApiFp(this.configuration).getTasks(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -411,11 +539,45 @@ export const ViewerApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTasksTaskId: async (taskId: string, options: any = {}): Promise<RequestArgs> => {
+        getTaskTaskId: async (taskId: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'taskId' is not null or undefined
-            assertParamExists('getTasksTaskId', 'taskId', taskId)
+            assertParamExists('getTaskTaskId', 'taskId', taskId)
             const localVarPath = `/task/{task_id}`
                 .replace(`{${"task_id"}}`, encodeURIComponent(String(taskId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * タスク群取得
+         * @summary タスク群取得
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTasks: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/tasks`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -459,8 +621,18 @@ export const ViewerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTasksTaskId(taskId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Task>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTasksTaskId(taskId, options);
+        async getTaskTaskId(taskId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Task>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTaskTaskId(taskId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * タスク群取得
+         * @summary タスク群取得
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTasks(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Task>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTasks(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -480,8 +652,17 @@ export const ViewerApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTasksTaskId(taskId: string, options?: any): AxiosPromise<Task> {
-            return localVarFp.getTasksTaskId(taskId, options).then((request) => request(axios, basePath));
+        getTaskTaskId(taskId: string, options?: any): AxiosPromise<Task> {
+            return localVarFp.getTaskTaskId(taskId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * タスク群取得
+         * @summary タスク群取得
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTasks(options?: any): AxiosPromise<Array<Task>> {
+            return localVarFp.getTasks(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -501,8 +682,19 @@ export class ViewerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ViewerApi
      */
-    public getTasksTaskId(taskId: string, options?: any) {
-        return ViewerApiFp(this.configuration).getTasksTaskId(taskId, options).then((request) => request(this.axios, this.basePath));
+    public getTaskTaskId(taskId: string, options?: any) {
+        return ViewerApiFp(this.configuration).getTaskTaskId(taskId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * タスク群取得
+     * @summary タスク群取得
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ViewerApi
+     */
+    public getTasks(options?: any) {
+        return ViewerApiFp(this.configuration).getTasks(options).then((request) => request(this.axios, this.basePath));
     }
 }
 

@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
+	"github.com/morninng/z-go-react-monorepo/internal/dto"
 )
 
 type TaskHandler struct {
@@ -23,5 +24,7 @@ func (h *TaskHandler) Routes(e *echo.Echo) {
 
 func (h *TaskHandler) getTasks(c echo.Context) error {
 
-	return c.JSON(http.StatusOK, "sss")
+	response := make(dto.Tasks, 3)
+
+	return c.JSON(http.StatusOK, &response)
 }

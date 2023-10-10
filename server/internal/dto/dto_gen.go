@@ -73,6 +73,9 @@ type Task struct {
 	Name     string             `json:"name"`
 }
 
+// Tasks タスク群
+type Tasks = []Task
+
 // UnauthorizedError 401(認証)番エラー
 type UnauthorizedError struct {
 	// Code 401(認証)番のエラーコード
