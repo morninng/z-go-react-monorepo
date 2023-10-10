@@ -11,6 +11,13 @@ const (
 	BearerAuthScopes = "BearerAuth.Scopes"
 )
 
+// Defines values for BadRequestErrorCodeEnum.
+const (
+	BadRequestErrorCodeEnumInvalidJson      BadRequestErrorCodeEnum = "invalid_json"
+	BadRequestErrorCodeEnumInvalidParameter BadRequestErrorCodeEnum = "invalid_parameter"
+	BadRequestErrorCodeEnumInvalidToken     BadRequestErrorCodeEnum = "invalid_token"
+)
+
 // Defines values for ErrorCodeEnum.
 const (
 	AlreadyExists       ErrorCodeEnum = "already_exists"
@@ -18,11 +25,26 @@ const (
 	NotFound            ErrorCodeEnum = "not_found"
 )
 
+// Defines values for ForbiddenErrorCodeEnum.
+const (
+	NotAllowed ForbiddenErrorCodeEnum = "not_allowed"
+)
+
 // Defines values for UnauthorizedErrorCodeEnum.
 const (
-	ExpiredToken UnauthorizedErrorCodeEnum = "expired_token"
-	InvalidToken UnauthorizedErrorCodeEnum = "invalid_token"
+	UnauthorizedErrorCodeEnumExpiredToken UnauthorizedErrorCodeEnum = "expired_token"
+	UnauthorizedErrorCodeEnumInvalidToken UnauthorizedErrorCodeEnum = "invalid_token"
 )
+
+// BadRequestError 400番エラー
+type BadRequestError struct {
+	// Code 400番エラーのコード
+	Code    BadRequestErrorCodeEnum `json:"code"`
+	Message string                  `json:"message"`
+}
+
+// BadRequestErrorCodeEnum 400番エラーのコード
+type BadRequestErrorCodeEnum string
 
 // Error defines model for Error.
 type Error struct {
@@ -32,6 +54,16 @@ type Error struct {
 
 // ErrorCodeEnum defines model for ErrorCodeEnum.
 type ErrorCodeEnum string
+
+// ForbiddenError 403番エラー
+type ForbiddenError struct {
+	// Code 403番のエラーコード
+	Code    ForbiddenErrorCodeEnum `json:"code"`
+	Message string                 `json:"message"`
+}
+
+// ForbiddenErrorCodeEnum 403番のエラーコード
+type ForbiddenErrorCodeEnum string
 
 // Task タスク
 type Task struct {
