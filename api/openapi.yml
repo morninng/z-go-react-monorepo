@@ -1,0 +1,199 @@
+openapi: 3.0.0
+info:
+  title: Sample API
+  version: '1.0.0'
+  description: API for Sample
+  contact:
+    name: WED
+    email: yuta.moriyama@gmail.com
+servers:
+  - url: 'localhost'
+tags:
+  - name: admin
+    description: admin role
+  - name: editor
+    description: editor role
+  - name: viewer
+    description: viewer role
+paths:
+  '/task/{task_id}':
+    parameters:
+      - $ref: '#/components/parameters/TasksTaskId'
+    get:
+      summary: タスク詳細取得
+      tags:
+        - admin
+        - editor
+        - viewer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-tasks-task_id
+      security:
+        - BearerAuth: []
+      description: タスク詳細取得
+
+
+
+components:
+  schemas:
+    #
+    # Model
+    #
+
+    Task:
+      title: Task
+      type: object
+      description: タスク
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ''
+        name:
+          type: string
+        constent:
+          type: string
+          description:  タスクの内容
+      required:
+        - id
+        - name
+        - constent
+
+    #
+    # Enum
+    #
+    RoleEnum:
+      type: string
+      title: RoleEnum
+      enum:
+        - admin
+        - editor
+        - viewer
+
+    #
+    # Request
+    #
+    AaaRequest: {}
+
+
+    #
+    # Error
+    #
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/ErrorCodeEnum'
+        message:
+          type: string
+      required:
+        - code
+        - message
+      description: ''
+    ErrorCodeEnum:
+      type: string
+      title: ErrorCodeEnum
+      enum:
+        - internal_server_error
+        - already_exists
+        - not_found
+    #
+    # 400 BadRequestError
+    #
+    BadRequestError:
+      title: BadRequestError
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/BadRequestErrorCodeEnum'
+        message:
+          type: string
+      required:
+        - code
+        - message
+      description: 400番エラー
+    BadRequestErrorCodeEnum:
+      type: string
+      title: BadRequestErrorCodeEnum
+      enum:
+        - invalid_json
+        - invalid_parameter
+        - invalid_token
+      description: 400番エラーのコード
+    #
+    # 401 UnauthorizedError
+    #
+    UnauthorizedError:
+      title: UnauthorizedError
+      type: object
+      description: 401(認証)番エラー
+      properties:
+        code:
+          $ref: '#/components/schemas/UnauthorizedErrorCodeEnum'
+        message:
+          type: string
+      required:
+        - code
+        - message
+    UnauthorizedErrorCodeEnum:
+      type: string
+      title: AuthErrorCodeEnum
+      enum:
+        - invalid_token
+        - expired_token
+      description: 401(認証)番のエラーコード
+    #
+    # 403 ForbiddenError
+    #
+    ForbiddenError:
+      title: ForbiddenError
+      type: object
+      description: 403番エラー
+      properties:
+        code:
+          $ref: '#/components/schemas/ForbiddenErrorCodeEnum'
+        message:
+          type: string
+      required:
+        - code
+        - message
+    ForbiddenErrorCodeEnum:
+      type: string
+      title: ForbiddenErrorCodeEnum
+      enum:
+        - not_allowed
+      description: 403番のエラーコード
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses: {}
+
+  parameters:
+    TasksTaskId:
+      name: task_id
+      in: path
+      required: true
+      description: タスクID
+      schema:
+        type: string
