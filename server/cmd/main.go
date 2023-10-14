@@ -12,6 +12,11 @@ func main() {
 	fmt.Println("hello world")
 	e := echo.New()
 
+	// db := datastore.NewDB()
+	// taskRepository := datastore.NewTaskRepository(db)
+	// taskApplicationService := application.NewTaskApplicationService(taskRepository)
+	// taskHandler := handlers.NewTaskHandler(taskApplicationService)
+
 	fmt.Println("CORS set")
 	e.Use(middleware.CORS())
 

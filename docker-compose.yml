@@ -1,0 +1,11 @@
+version: '3'
+services:
+  db:
+    image: postgres:15.4
+    container_name: sample_db_container
+    environment:
+      POSTGRES_DB: 'aaaa'
+      POSTGRES_USER: 'aaaa'
+      POSTGRES_PASSWORD: 'aaaa'
+    ports:
+      - "25432:5432"

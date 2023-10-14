@@ -7,12 +7,17 @@
 package main
 
 import (
+	"github.com/morninng/z-go-react-monorepo/internal/application"
+	"github.com/morninng/z-go-react-monorepo/internal/infrastructure/datastore"
 	"github.com/morninng/z-go-react-monorepo/internal/interfaces/handlers"
 )
 
 // Injectors from wire.go:
 
 func InitializeTaskHandler() *handlers.TaskHandler {
-	taskHandler := handlers.NewTaskHandler()
+	db := datastore.NewDB()
+	taskRepository := datastore.NewTaskRepository(db)
+	taskApplicationService := application.NewTaskApplicationService(taskRepository)
+	taskHandler := handlers.NewTaskHandler(taskApplicationService)
 	return taskHandler
 }

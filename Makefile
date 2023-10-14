@@ -1,4 +1,4 @@
-gen-server-model: ## genarete model codes
+gen-server-dto: ## genarete dto files
 	@oapi-codegen -generate types -package dto -o server/internal/dto/dto_gen.go api/openapi.yml
 
 gen-client-api:

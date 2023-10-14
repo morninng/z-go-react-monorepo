@@ -1,0 +1,13 @@
+output = "internal/infrastructure/model"
+wipe = true
+no-tests = true
+
+[psql]
+dbname = "aaaa"
+host   = "localhost"
+port   = 25432
+user   = "aaaa"
+pass   = "aaaa"
+schema = "public"
+sslmode = "disable"
+blacklist = ["schema_migrations"]
