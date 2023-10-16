@@ -103,7 +103,47 @@ paths:
       security:
         - BearerAuth: []
       description: タスク群取得
-
+    post:
+      summary: タスク群作成
+      tags:
+        - admin
+        - editor
+        - viewer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tasks'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: post-tasks
+      security:
+        - BearerAuth: []
+      description: タスク群取得
 
 components:
   schemas:

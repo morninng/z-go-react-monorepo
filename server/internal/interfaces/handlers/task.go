@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"github.com/morninng/z-go-react-monorepo/internal/application"
 	"github.com/morninng/z-go-react-monorepo/internal/domain/entity"
@@ -46,10 +47,10 @@ func (h *TaskHandler) getTasks(c echo.Context) error {
 }
 
 func (h *TaskHandler) postTasks(c echo.Context) error {
-	// ctx := c.Request().Context()
+	ctx := c.Request().Context()
 
-	tasks := &entity.Tasks{}
-	if err := c.Bind(tasks); err != nil {
+	dtoTasks := &dto.Tasks{}
+	if err := c.Bind(dtoTasks); err != nil {
 		fmt.Println("ssss", err)
 		return c.JSON(http.StatusBadRequest, dto.BadRequestError{
 			Code:    dto.BadRequestErrorCodeEnumInvalidParameter,
@@ -57,14 +58,23 @@ func (h *TaskHandler) postTasks(c echo.Context) error {
 		})
 	}
 
-	response := make(dto.Tasks, len(*tasks))
-	for i, task := range *tasks {
-		response[i] = dto.Task{
-			Id:       task.ID,
-			Name:     task.Name,
-			Constent: task.Content,
+	cmdParms := make(entity.Tasks, len(*dtoTasks))
+	for i, task := range *dtoTasks {
+		cmdParms[i] = entity.Task{
+			ID:      uuid.UUID(task.Id),
+			Name:    task.Name,
+			Content: task.Constent,
 		}
 	}
 
-	return c.JSON(http.StatusOK, &response)
+	postCmd := application.TaskSaveCommand{
+		Tasks: cmdParms,
+	}
+
+	err := h.taskAppSrv.PostMany(ctx, postCmd)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+
+	return c.JSON(http.StatusOK, nil)
 }

@@ -3,6 +3,7 @@ package datastore
 import (
 	"context"
 	"database/sql"
+	"fmt"
 
 	"github.com/morninng/z-go-react-monorepo/internal/domain/entity"
 	"github.com/morninng/z-go-react-monorepo/internal/domain/repository"
@@ -29,4 +30,41 @@ func (t *taskRepository) GetAll(c context.Context) (*entity.Tasks, error) {
 		result[i] = ta
 	}
 	return &result, nil
+}
+
+func (t *taskRepository) CreateMany(c context.Context, tasks_entities entity.Tasks) error {
+
+	// tasks_models := make([]models.Task, len(tasks_entities))
+
+	tx, err := t.db.Begin()
+	if err != nil {
+		// エラーハンドリング
+		fmt.Println("ssss", err)
+		return err
+	}
+	defer tx.Rollback()
+
+	for _, task := range tasks_entities {
+		_, err := tx.ExecContext(
+			c,
+			"INSERT INTO tasks (id, name, content) VALUES ($1, $2, $3)",
+			task.ID,
+			task.Name,
+			task.Content,
+		)
+		if err != nil {
+			// エラーハンドリング
+			fmt.Println("ttt", err)
+			return err
+		}
+
+	}
+
+	if err := tx.Commit(); err != nil {
+		// エラーハンドリング
+		fmt.Println("uuu", err)
+		return err
+	}
+
+	return nil
 }

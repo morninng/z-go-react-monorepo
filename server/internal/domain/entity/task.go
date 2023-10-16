@@ -4,7 +4,7 @@ import (
 	"github.com/google/uuid"
 )
 
-type Tasks []*Task
+type Tasks []Task
 
 type Task struct {
 	ID      uuid.UUID

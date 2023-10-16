@@ -38,7 +38,7 @@ func NewDB() *sql.DB {
 	// )
 
 	fmt.Println("////////////////")
-	db, err := sql.Open("postgres", "host=localhost port=25434  dbname=aaaa user=aaaa password=aaaa  sslmode=disable")
+	db, err := sql.Open("postgres", "host=localhost port=25432  dbname=aaaa user=aaaa password=aaaa  sslmode=disable")
 	if err != nil {
 		fmt.Println("open database failure", err)
 		log.Fatalln(err)

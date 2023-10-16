@@ -12,6 +12,10 @@ import (
 type (
 	TaskApplicationService interface {
 		GetAll(c context.Context) (*entity.Tasks, error)
+		PostMany(c context.Context, cmd TaskSaveCommand) error
+	}
+	TaskSaveCommand struct {
+		Tasks entity.Tasks
 	}
 
 	taskApplicationService struct {
@@ -41,4 +45,27 @@ func (t *taskApplicationService) GetAll(c context.Context) (*entity.Tasks, error
 		return nil, err
 	}
 	return <-tasksChan, nil
+}
+
+func (t *taskApplicationService) PostMany(c context.Context, cmd TaskSaveCommand) error {
+	// op := "taskApplicationService.Get"
+	// g, ctx := errgroup.WithContext(c)
+	tasks := cmd.Tasks
+
+	g, ctx := errgroup.WithContext(c)
+	tasksChan := make(chan *entity.Tasks, 1)
+
+	g.Go(func() error {
+		defer close(tasksChan)
+		err := t.taskRepo.CreateMany(ctx, tasks)
+		if err != nil {
+			return err
+		}
+		return nil
+	})
+	if err := g.Wait(); err != nil {
+		return err
+	}
+	return nil
+
 }

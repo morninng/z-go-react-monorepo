@@ -8,4 +8,5 @@ import (
 
 type TaskRepository interface {
 	GetAll(ctx context.Context) (*entity.Tasks, error)
+	CreateMany(ctx context.Context, tasks entity.Tasks) error
 }
