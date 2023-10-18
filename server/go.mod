@@ -5,6 +5,7 @@ go 1.20
 require (
 	github.com/deepmap/oapi-codegen v1.15.0
 	github.com/friendsofgo/errors v0.9.2
+	github.com/golang/mock v1.6.0
 	github.com/google/wire v0.5.0
 	github.com/labstack/echo/v4 v4.11.1
 	github.com/lib/pq v1.10.6
