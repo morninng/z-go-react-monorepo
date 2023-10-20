@@ -9,7 +9,7 @@ package main
 import (
 	"github.com/morninng/z-go-react-monorepo/internal/application"
 	"github.com/morninng/z-go-react-monorepo/internal/infrastructure/datastore"
-	"github.com/morninng/z-go-react-monorepo/internal/interfaces/handlers"
+	"github.com/morninng/z-go-react-monorepo/internal/handlers"
 )
 
 // Injectors from wire.go:
