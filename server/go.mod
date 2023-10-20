@@ -3,6 +3,7 @@ module github.com/morninng/z-go-react-monorepo
 go 1.20
 
 require (
+	github.com/DATA-DOG/go-sqlmock v1.4.1
 	github.com/deepmap/oapi-codegen v1.15.0
 	github.com/friendsofgo/errors v0.9.2
 	github.com/golang/mock v1.6.0
