@@ -14,7 +14,7 @@ import (
 
 func TestGetAllTasks(t *testing.T) {
 
-	ctx := context.TODO()
+	ctx := context.Background()
 	allTasks := entity.Tasks{
 		{ID: uuid.New(), Name: "aaa", Content: "jj"},
 		{ID: uuid.New(), Name: "bbba", Content: "jj"},
@@ -27,13 +27,13 @@ func TestGetAllTasks(t *testing.T) {
 
 	mockTaskRepsitory.
 		EXPECT().
-		GetAll(ctx).
-		Return(allTasks, nil)
+		GetAll(gomock.Any()).
+		Return(&allTasks, nil)
 
 	taskApplicationService := NewTaskApplicationService(mockTaskRepsitory)
 
-	resAllTasks, _ := taskApplicationService.GetAll()
-	if !reflect.DeepEqual(resAllTasks, allTasks) {
+	resAllTasks, _ := taskApplicationService.GetAll(ctx)
+	if !reflect.DeepEqual(*resAllTasks, allTasks) {
 		t.Error("tasks are not equal")
 	}
 
